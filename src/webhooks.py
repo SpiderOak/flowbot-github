@@ -1,6 +1,6 @@
 """webhook.py - Parse various webhooks from GitHub."""
 from collections import namedtuple
-from . import util
+import util
 
 
 # WebhookSummary provides a simplified version of any webhook that is ready

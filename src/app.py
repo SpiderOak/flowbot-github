@@ -1,7 +1,7 @@
 """app.py - Forwards webhook events as messages to bot.py."""
 
 from flask import Flask
-from bot import WebBot
+from bot import WebhookBot
 from flask_hookserver import Hooks
 from webhooks import GithubWebhookConsumer
 from settings import settings
@@ -13,7 +13,7 @@ app.config['VALIDATE_IP'] = settings.get('github_validate_ip', False)
 app.config['VALIDATE_SIGNATURE'] = settings.get('github_validate_signature', True)  # NOQA
 
 hooks = Hooks(app, url=settings.get('github_webhooks_url', '/hooks'))
-bot = WebBot(settings)
+bot = WebhookBot(settings)
 webhook_consumer = GithubWebhookConsumer(bot)
 
 

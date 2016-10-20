@@ -1,7 +1,7 @@
 """bot.py A simple bot that sends messages to Semaphor."""
 
 from flowbot import FlowBot
-from .template_env import template
+from template_env import template
 
 
 class WebhookBot(FlowBot):

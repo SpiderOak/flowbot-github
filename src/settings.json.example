@@ -3,5 +3,7 @@
   "password": "MyBotsSuperSecretPassword",
   "org_id": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
   "display_name": "WebBotRulesTheWorld",
-  "biography": "I'm just a poor bot; nobody loves me..."
+  "biography": "I'm just a poor bot; nobody loves me...",
+  "github_webhook_secret": "my_secret_key",
+  "github_webhook_url": "/hooks"
 }

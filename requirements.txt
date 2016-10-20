@@ -1,3 +1,4 @@
 git+git://github.com/SpiderOak/flow-python.git@master
 Flask
-github-webhook
+flask_hookserver
+jinja2

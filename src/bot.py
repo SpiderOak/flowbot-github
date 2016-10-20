@@ -1,19 +1,13 @@
 """bot.py A simple bot that sends messages to Semaphor."""
 
-import json
 from flowbot import FlowBot
+from .template_env import template
 
 
-class WebBot(FlowBot):
-    """WebBot posts messages into Semaphor ostensibly from the web."""
+class WebhookBot(FlowBot):
+    """WebhookBot responds to GitHub webhooks in Semaphor."""
 
-    def __init__(self):
-        """Initialize the bot with settings in settings.json."""
-        with open('settings.json') as data_file:
-            settings = json.load(data_file)
-        super(WebBot, self).__init__(settings)
-
-    def alert(self, endpoint, msg):
-        """Alert all channels that a new endpoint has been accessed."""
-        message = "New web event (%s): %s" % (endpoint, msg)
-        self.message_all_channels(message)
+    def handle_webhook_summary(self, summary):
+        """Message Semaphor channels with a summary of the webhook."""
+        msg = template.get_template('webhook_summary.txt').render(summary=summary)  # NOQA
+        self.message_all_channels(msg)

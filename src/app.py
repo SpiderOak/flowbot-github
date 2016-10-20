@@ -17,13 +17,6 @@ bot = WebhookBot(settings)
 webhook_consumer = GithubWebhookConsumer(bot)
 
 
-@app.route('/', methods=['GET'])
-def home():
-    """The home page."""
-    bot.alert('/', 'Someone just visited the homepage.')
-    return 'Hello!'
-
-
 @hooks.hook('issues')
 def issue_webhook(payload, guid):
     """Handle GitHub Issue Events."""

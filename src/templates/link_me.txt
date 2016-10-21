@@ -1,0 +1,3 @@
+I will highlight you whenever the github username "{{ github_username }}" is associated with new events.
+
+You can undo this with "/notme {{ github_username }}"

@@ -8,4 +8,6 @@ class WebhookBot(FlowBot):
 
     def handle_webhook_message(self, message):
         """Message Semaphor channels with a summary of the webhook."""
-        self.message_all_channels(message)
+        msg = message.render()
+        if msg:
+            self.message_all_channels(msg)

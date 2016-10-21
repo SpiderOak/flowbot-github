@@ -1,0 +1,3 @@
+[{{ repo_name }}] Pull Request {{ action }} {{ action | emoji }}
+"{{ title }}"
+{{ url }}

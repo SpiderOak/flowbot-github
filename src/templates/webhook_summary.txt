@@ -1,2 +1,0 @@
-{{ summary.msg }}
-{{ summary.url }}

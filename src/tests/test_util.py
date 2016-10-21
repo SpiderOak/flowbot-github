@@ -71,3 +71,12 @@ class TestUtil(TestCase):
         usernames = util.get_usernames(data, userpaths)
         expected = set(['foouser'])
         self.assertEqual(expected, usernames)
+
+    def test_emoji(self):
+        """Make sure each of the given actions produces an emoji."""
+        emoji_actions = [
+            'opened', 'edited', 'merged', 'closed', 'assigned', 'reopened'
+        ]
+        for action in emoji_actions:
+            emoji = util.action_emoji(action)
+            self.assertNotEqual(emoji, '')

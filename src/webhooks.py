@@ -1,6 +1,6 @@
 """webhook.py - Parse various webhooks from GitHub."""
 from collections import namedtuple
-import util
+from message import WebhookMessage
 
 
 # WebhookSummary provides a simplified version of any webhook that is ready
@@ -17,42 +17,56 @@ class GithubWebhookConsumer(object):
 
     def process(self, payload, webhook_name):
         """Send a message to the flowbot based on the webhook payload."""
-        processor = getattr(self, webhook_name)
-        summary = processor(payload)
-        self.flowbot.handle_webhook_summary(summary)
+        paths = self.get_paths(webhook_name)
+        message = WebhookMessage(webhook_name, payload, **paths)
+        self.flowbot.handle_webhook_message(message)
         return '', 200
 
-    def issues(self, payload):
-        """Return an issue message."""
-        userpaths = (
-            ['issue', 'user'],
-            ['repository', 'owner'],
-            ['assignee'],
-            ['sender']
-        )
+    @classmethod
+    def get_paths(cls, webhook_name):
+        """Return the paths to message information within the payload.
 
-        return WebhookSummary(
-            msg='Issue {0}'.format(payload.get('action')),
-            url=payload['issue']['url'],
-            users=util.get_usernames(payload, userpaths),
-            repo=payload['repository']['full_name']
-        )
+        There are also some default settings that are injected if the specified
+        path processor doesn't already provide them.
+        """
+        path_processor = getattr(cls, webhook_name)
+        paths = path_processor()
+        defaults = {
+            'repo': ['repository'],
+            'action': ['action']
+        }
+        for key, default_value in defaults.iteritems():
+            if key not in paths:
+                paths[key] = default_value
+        return paths
 
-    def pull_request(self, payload):
-        """Return a pull request message."""
-        userpaths = (
-            ['pull_request', 'user'],
-            ['pull_request', 'head', 'user'],
-            ['pull_request', 'head', 'repo', 'user'],
-            ['pull_request', 'base', 'user'],
-            ['pull_request', 'base', 'repo', 'user'],
-            ['repository', 'owner'],
-            ['sender']
-        )
+    @staticmethod
+    def issues():
+        """Return the payload paths for issues."""
+        return {
+            "title": ['issue', 'title'],
+            "url": ['issue', 'url'],
+            "users": [
+                ['issue', 'user'],
+                ['repository', 'owner'],
+                ['assignee'],
+                ['sender']
+            ]
+        }
 
-        return WebhookSummary(
-            msg='Pull Request {0}'.format(payload.get('action')),
-            url=payload['pull_request']['url'],
-            users=util.get_usernames(payload, userpaths),
-            repo=payload['repository']['full_name']
-        )
+    @staticmethod
+    def pull_request():
+        """Return the payload paths for pull_requests."""
+        return {
+            "title": ['pull_request', 'title'],
+            "url": ['pull_request', 'url'],
+            "users": [
+                ['pull_request', 'user'],
+                ['pull_request', 'head', 'user'],
+                ['pull_request', 'head', 'repo', 'user'],
+                ['pull_request', 'base', 'user'],
+                ['pull_request', 'base', 'repo', 'user'],
+                ['repository', 'owner'],
+                ['sender']
+            ]
+        }

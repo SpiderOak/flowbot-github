@@ -48,7 +48,6 @@ class TestUtil(TestCase):
 
         usernames = util.get_usernames(data, userpaths)
         expected = set(['foouser', 'repoowner', 'assigneeuser', 'senderuser'])
-        print usernames
         self.assertEqual(expected, usernames)
 
     def test_get_usernames_partial(self):

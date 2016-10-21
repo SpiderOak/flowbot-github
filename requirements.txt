@@ -2,5 +2,5 @@ git+git://github.com/SpiderOak/flow-python.git@master
 Flask
 flask_hookserver
 jinja2
-ipaddressdd
+ipaddress
 emoji

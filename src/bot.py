@@ -11,7 +11,8 @@ class WebhookBot(FlowBot):
     def commands(self):
         return {
             "/me": self.link_me,
-            "/notme": self.unlink_me
+            "/notme": self.unlink_me,
+            "/help": self.help
         }
 
     def handle_webhook_message(self, webhook_message):
@@ -29,6 +30,11 @@ class WebhookBot(FlowBot):
             for username in webhook_message.usernames:
                 highlight.extend(self._get_links(username))
         return
+
+    @mentioned
+    def help(self, flow_message):
+        """Show all the command options."""
+        self.render_response(flow_message, 'help.txt', {})
 
     @mentioned
     def link_me(self, flow_message):
@@ -60,7 +66,7 @@ class WebhookBot(FlowBot):
                 highlight=[sender_id]
             )
 
-    def render_response(self, orig_message, template_name, context, highlight):
+    def render_response(self, orig_message, template_name, context={}, highlight=None):  # NOQA
         """Render the context to the message template and respond."""
         response = ENV.get_template(template_name)
         self.reply(orig_message, response.render(**context), highlight)

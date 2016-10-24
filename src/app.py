@@ -5,7 +5,6 @@ from bot import WebhookBot
 from flask_hookserver import Hooks
 from webhooks import GithubWebhookConsumer
 from settings import settings
-import threading
 
 app = Flask(__name__)
 
@@ -31,6 +30,5 @@ def pull_request_webhook(payload, guid):
 
 
 if __name__ == '__main__':
-    t = threading.Thread(name="github_bot", target=bot.run)
-    t.start()
     app.run(debug=True, host='0.0.0.0', port=8080)
+    bot.run(block=False)

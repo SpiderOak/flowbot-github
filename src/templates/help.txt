@@ -1,10 +1,7 @@
-[Admin Commands]
-None
-
-
 [Mention Commands]
+==================
 /me <username>
-  Link your account with a the github username given. Anytime a new event is posted, if this username is associated with the event I will notify you.
+      Link your Semaphor account with a the github username.
 
 /notme <username>
-  Undo the link above!
+      Unlink your Semaphor acccount from the github username.

@@ -28,7 +28,7 @@ class WebhookBot(FlowBot):
         highlight = []
         if webhook_message.usernames:
             for username in webhook_message.usernames:
-                highlight.extend(self._get_links(username))
+                highlight.extend(self._get_account_ids(username))
         return
 
     @mentioned
@@ -71,24 +71,24 @@ class WebhookBot(FlowBot):
         response = ENV.get_template(template_name)
         self.reply(orig_message, response.render(**context), highlight)
 
-    def _get_links(self, github_username):
-        """Get the record of all accounts linked w/ this username."""
+    def _get_account_ids(self, github_username):
+        """Get the record of all account ids linked w/ this username."""
         db_key = 'links_%s' % (github_username, )
-        links = self.channel_db.get_last(db_key)
-        return links if links else []
+        account_ids = self.channel_db.get_last(db_key)
+        return account_ids if account_ids else []
 
     def _link_account_to_username(self, account_id, github_username):
         """Link the semaphor account_id with the github username."""
         db_key = 'links_%s' % (github_username, )
-        existing_links = self._get_links(github_username)
-        if account_id not in existing_links:
-            existing_links.append(account_id)
-            self.channel_db.new(db_key, existing_links)
+        account_ids = self._get_account_ids(github_username)
+        if account_id not in account_ids:
+            account_ids.append(account_id)
+            self.channel_db.new(db_key, account_ids)
 
     def _unlink_account(self, account_id, github_username):
         """Unlink the account_id and github_username."""
         db_key = 'links_%s' % (github_username, )
-        existing_links = self._get_links(github_username)
-        if account_id in existing_links:
-            existing_links.remove(account_id)
-            self.channel_db.new(db_key, existing_links)
+        account_ids = self._get_account_ids(github_username)
+        if account_id in account_ids:
+            account_ids.remove(account_id)
+            self.channel_db.new(db_key, account_ids)

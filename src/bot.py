@@ -18,18 +18,18 @@ class WebhookBot(FlowBot):
     def handle_webhook_message(self, webhook_message):
         """Message Semaphor channels with a summary of the webhook."""
         msg = webhook_message.render()
-        highlight = self._get_highlights(webhook_message)
+        highlights = self._get_highlights(webhook_message)
 
         if msg:
-            self.message_all_channels(msg, highlight=highlight)
+            self.message_all_channels(msg, highlight=highlights)
 
     def _get_highlights(self, webhook_message):
         """Get all the account_ids that should be highlighted."""
-        highlight = []
+        highlights = []
         if webhook_message.usernames:
             for username in webhook_message.usernames:
-                highlight.extend(self._get_account_ids(username))
-        return
+                highlights.extend(self._get_account_ids(username))
+        return highlights
 
     @mentioned
     def help(self, flow_message):

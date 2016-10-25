@@ -45,7 +45,7 @@ class GithubWebhookConsumer(object):
         """Return the payload paths for issues."""
         return {
             "title": ['issue', 'title'],
-            "url": ['issue', 'url'],
+            "url": ['issue', 'html_url'],
             "users": [
                 ['issue', 'user'],
                 ['repository', 'owner'],
@@ -59,7 +59,7 @@ class GithubWebhookConsumer(object):
         """Return the payload paths for pull_requests."""
         return {
             "title": ['pull_request', 'title'],
-            "url": ['pull_request', 'url'],
+            "url": ['pull_request', 'html_url'],
             "users": [
                 ['pull_request', 'user'],
                 ['pull_request', 'head', 'user'],

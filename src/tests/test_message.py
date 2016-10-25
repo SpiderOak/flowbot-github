@@ -29,7 +29,7 @@ class TestMessage(TestCase):
         self.assertEqual(message.title, 'Spelling error in the README file')
         self.assertEqual(message.action, 'opened')
         self.assertEqual(message.repo_name, 'baxterthehacker/public-repo')
-        self.assertEqual(message.url, 'https://api.github.com/repos/baxterthehacker/public-repo/issues/2')  # NOQA
+        self.assertEqual(message.url, 'https://github.com/baxterthehacker/public-repo/issues/2')  # NOQA
 
     def test_pull_request_message(self):
         """Make sure Message loads the canned pull-request response."""
@@ -39,7 +39,7 @@ class TestMessage(TestCase):
         self.assertEqual(message.title, 'Update the README with new information')  # NOQA
         self.assertEqual(message.repo_name, 'baxterthehacker/public-repo')
         self.assertEqual(message.action, 'opened')
-        self.assertEqual(message.url, 'https://api.github.com/repos/baxterthehacker/public-repo/pulls/1')  # NOQA
+        self.assertEqual(message.url, 'https://github.com/baxterthehacker/public-repo/pull/1')  # NOQA
 
     def test_ignore_certain_actions(self):
         """Certain actions should be ignored."""

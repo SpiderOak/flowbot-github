@@ -1,5 +1,8 @@
 git+git://github.com/SpiderOak/flow-python.git@master
-git+ssh://git@github.com/SpiderOak/flowbot.git@master
+
+# When flowbot becomes public, uncomment the line below
+# git+git://github.com/SpiderOak/flowbot.git@master
+
 Flask
 flask_hookserver
 jinja2

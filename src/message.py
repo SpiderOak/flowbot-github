@@ -50,7 +50,7 @@ class WebhookMessage(object):
         return False
 
     def context(self):
-        """Return a context dict to be used in rednering templates."""
+        """Return a context dict to be used in rendering templates."""
         return {
             "repo_name": self.repo_name,
             "title": self.title,

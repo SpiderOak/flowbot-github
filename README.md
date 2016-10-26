@@ -4,7 +4,7 @@ A [Semaphor](https://spideroak.com/solutions/semaphor) bot that responds to GitH
 
 This bot runs 2 threads:
   - A Flask webapp that listens for incoming webhooks from GitHub
-  - A Semaphor bot that listes for incoming messages from Semaphor
+  - A Semaphor bot that listens for incoming messages from Semaphor
 
 Beacause the webapp needs to be listening on the public internet, this bot must de deployed to a public server. Please see the following deployment examples to get started:
   - [flowbot-github on Google AppEngine](https://github.com/SpiderOak/flowbot-github-appengine)

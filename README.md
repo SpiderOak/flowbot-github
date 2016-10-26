@@ -1,6 +1,6 @@
 # flowbot-github
 
-A [Semaphor](https://spideroak.com/solutions/semaphor) bot that responds to GitHub webhooks and posts a summary of those webhook events into the Semaphor Channls to which this bot belongs. `flobot-github` is based off the [flowbot](https://github.com/SpiderOak/flowbot) boilerplate.
+A [Semaphor](https://spideroak.com/solutions/semaphor) bot that responds to GitHub webhooks and posts a summary of those webhook events to Semaphor channels. `flobot-github` is based off the [flowbot](https://github.com/SpiderOak/flowbot) boilerplate.
 
 This bot runs 2 threads:
   - A Flask webapp that listens for incoming webhooks from GitHub

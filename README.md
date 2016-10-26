@@ -1,3 +1,6 @@
+> Please Note: This project has not undergone a security review.
+
+
 # flowbot-github
 
 A [Semaphor](https://spideroak.com/solutions/semaphor) bot that responds to GitHub webhooks and posts a summary of those webhook events to Semaphor channels. `flobot-github` is based off the [flowbot](https://github.com/SpiderOak/flowbot) boilerplate.

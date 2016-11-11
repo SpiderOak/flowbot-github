@@ -42,3 +42,8 @@ def action_emoji(action):
         alias = emoji_map[action]
         return emoji.emojize(alias, use_aliases=True)
     return ''
+
+
+def emoji_filter(emoji_alias):
+    """Return an emoji given the alias."""
+    return emoji.emojize(emoji_alias, use_aliases=True)

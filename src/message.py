@@ -8,7 +8,8 @@ import util
 ENV = Environment(
     loader=FileSystemLoader('%s/templates/' % os.path.dirname(__file__))
 )
-ENV.filters['emoji'] = util.action_emoji
+ENV.filters['action_emoji'] = util.action_emoji
+ENV.filters['emoji'] = util.emoji_filter
 
 
 class WebhookMessage(object):

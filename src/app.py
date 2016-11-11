@@ -12,9 +12,9 @@ app.config['GITHUB_WEBHOOKS_KEY'] = settings.get('github_webhook_secret')
 app.config['VALIDATE_IP'] = settings.get('github_validate_ip', False)
 app.config['VALIDATE_SIGNATURE'] = settings.get('github_validate_signature', True)  # NOQA
 
-hooks = Hooks(app, url=settings.get('github_webhooks_url', '/hooks'))
 bot = WebhookBot(settings)
 webhook_consumer = GithubWebhookConsumer(bot)
+hooks = Hooks(app, bot.hooks_endpoint)
 
 
 @hooks.hook('issues')

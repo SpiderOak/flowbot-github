@@ -8,11 +8,19 @@ from message import ENV
 class WebhookBot(FlowBot):
     """WebhookBot responds to GitHub webhooks in Semaphor."""
 
+    def __init__(self, settings):
+        """Initialize the bot with the settings file."""
+        super(WebhookBot, self).__init__(settings)
+        self.hooks_endpoint = settings.get('github_webhooks_url', '/hooks')
+        self.url = settings.get('public_url', '') + self.hooks_endpoint
+        self.url = self.url.replace('//', '/')
+
     def commands(self):
+        """Register the in-app (Semaphor) commands."""
         return {
-            "/me": self.link_me,
-            "/notme": self.unlink_me,
-            "/help": self.help
+            "me": self.link_me,
+            "notme": self.unlink_me,
+            "help": self.help
         }
 
     def handle_webhook_message(self, webhook_message):
@@ -34,7 +42,10 @@ class WebhookBot(FlowBot):
     @mentioned
     def help(self, flow_message):
         """Show all the command options."""
-        self.render_response(flow_message, 'help.txt', {})
+        self.render_response(flow_message, 'help.txt', {
+            "botname": self.config.display_name,
+            "public_url": self.url
+        })
 
     @mentioned
     def link_me(self, flow_message):

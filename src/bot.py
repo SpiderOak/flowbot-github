@@ -20,7 +20,8 @@ class WebhookBot(FlowBot):
         return {
             "me": self.link_me,
             "notme": self.unlink_me,
-            "help": self.help
+            "help": self.help,
+            "list": self.list_repos
         }
 
     def handle_webhook_message(self, webhook_message):
@@ -78,6 +79,16 @@ class WebhookBot(FlowBot):
                 context={"github_username": github_username},
                 highlight=[sender_id]
             )
+
+    @mentioned
+    def list_repos(self, flow_message):
+        """List all repos registered with this bot."""
+        repos = self._get_repos()
+        self.render_response(
+            orig_message=flow_message,
+            template_name='list_repos.txt',
+            context={"repos": repos},
+        )
 
     def _register_repo(self, repo_name):
         repos = self._get_repos()

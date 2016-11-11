@@ -1,0 +1,12 @@
+{% if not users -%}
+No GitHub repositories set up webhooks with me yet.
+
+This bot is listening for GitHub webhooks at:
+{{ public_url }}
+
+{%- else -%}
+Github Repos:
+{%- for repo in repos %}
+{{ repo }}
+{%- endfor %}
+{%- endif %}

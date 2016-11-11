@@ -30,12 +30,15 @@ class GithubWebhookConsumer(object):
         path processor doesn't already provide them.
         """
         path_processor = getattr(cls, webhook_name)
-        paths = path_processor()
+        paths = path_processor() if path_processor else {}
         defaults = {
             'repo': ['repository'],
-            'action': ['action']
+            'action': ['action'],
+            'title': [],
+            'users': [],
+            'url': []
         }
-        for key, default_value in defaults.iteritems():
+        for key, default_value in defaults.items():
             if key not in paths:
                 paths[key] = default_value
         return paths

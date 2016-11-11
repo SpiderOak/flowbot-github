@@ -1,0 +1,1 @@
+{{ ':rocket:' | emoji }} New Repository: [{{ repo_name }}]

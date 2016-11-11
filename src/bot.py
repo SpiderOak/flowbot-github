@@ -25,6 +25,8 @@ class WebhookBot(FlowBot):
 
     def handle_webhook_message(self, webhook_message):
         """Message Semaphor channels with a summary of the webhook."""
+        self.register_repo(webhook_message.repo_name)
+
         msg = webhook_message.render()
         highlights = self._get_highlights(webhook_message)
 
@@ -77,10 +79,27 @@ class WebhookBot(FlowBot):
                 highlight=[sender_id]
             )
 
+    def _register_repo(self, repo_name):
+        repos = self._get_repos()
+        if repo_name not in repos:
+            repos.append(repo_name)
+            self.channel_db.new('repos', repos)
+            self.render_to_all_channels('new_repo.txt', {'repo': repo_name})
+
+    def _get_repos(self):
+        """Get all GitHub repos currently watched by this bot."""
+        repos = self.channel_db.get_last('repos')
+        return repos if repos else []
+
     def render_response(self, orig_message, template_name, context={}, highlight=None):  # NOQA
         """Render the context to the message template and respond."""
         response = ENV.get_template(template_name)
         self.reply(orig_message, response.render(**context), highlight)
+
+    def render_to_all_channels(self, template_name, context={}, highlight=None):  # NOQA
+        """Render context to the message template and message all channel."""
+        response = ENV.get_template(template_name)
+        self.message_all_channels(response.render(**context), highlight)
 
     def _get_account_ids(self, github_username):
         """Get the record of all account ids linked w/ this username."""

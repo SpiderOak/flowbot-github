@@ -17,6 +17,12 @@ webhook_consumer = GithubWebhookConsumer(bot)
 hooks = Hooks(app, bot.hooks_endpoint)
 
 
+@hooks.hook('ping')
+def ping_webhook(payload, guid):
+    """Handle GitHub Ping (sent when webhook is created)."""
+    return webhook_consumer.process(payload, 'ping')
+
+
 @hooks.hook('issues')
 def issue_webhook(payload, guid):
     """Handle GitHub Issue Events."""

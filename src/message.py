@@ -38,16 +38,19 @@ class WebhookMessage(object):
         return self.template.render(**context)
 
     @staticmethod
-    def ignore(message_type, action):
+    def ignore(message_type, action=None):
         """Ignore some webhook messages."""
         ignored_actions = {
             'pull_request': ("unassigned", "labeled", "unlabeled"),
             'issues': ("unassigned", "labeled", "unlabeled")
         }
+        ignored_message_types = ("ping",)
 
         if message_type in ignored_actions:
             if action in ignored_actions[message_type]:
                 return True
+        if message_type in ignored_message_types:
+            return True
         return False
 
     def context(self):

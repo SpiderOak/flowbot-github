@@ -1,0 +1,4 @@
+github_bot:
+  build: .
+  ports:
+    - 8080

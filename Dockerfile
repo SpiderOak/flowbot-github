@@ -6,8 +6,6 @@ RUN apt-get install curl
 RUN apt-get -y install libxss1
 RUN curl -O -J https://spideroak.com/releases/semaphor/debian
 
-RUN ls
-
 RUN dpkg -i semaphor*.deb
 RUN apt-get install -f
 

@@ -29,7 +29,7 @@ class GithubWebhookConsumer(object):
         There are also some default settings that are injected if the specified
         path processor doesn't already provide them.
         """
-        path_processor = getattr(cls, webhook_name)
+        path_processor = getattr(cls, webhook_name, None)
         paths = path_processor() if path_processor else {}
         defaults = {
             'repo': ['repository'],

@@ -17,9 +17,7 @@ class WebhookMessage(object):
 
     def __init__(self, message_type, payload, **kwargs):
         """Initialize a message."""
-        _template_name = "{0}.txt".format(message_type)
         self.message_type = message_type
-        self.template = ENV.get_template(_template_name)
         self.title = util.traverse_dict(payload, kwargs['title'])
         self.url = util.traverse_dict(payload, kwargs['url'])
         self.action = util.traverse_dict(payload, kwargs['action'])
@@ -35,7 +33,9 @@ class WebhookMessage(object):
             return None
 
         context = self.context()
-        return self.template.render(**context)
+        template_name = "{0}.txt".format(self.message_type)
+        template = ENV.get_template(template_name)
+        return template.render(**context)
 
     @staticmethod
     def ignore(message_type, action=None):

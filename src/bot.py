@@ -83,12 +83,11 @@ class WebhookBot(FlowBot):
     @mentioned
     def list_repos(self, flow_message):
         """List all repos registered with this bot."""
-        repos = self._get_repos()
         self.render_response(
             orig_message=flow_message,
             template_name='list_repos.txt',
             context={
-                "repos": repos,
+                "repos": self._get_repos(),
                 "public_url": self.url
             },
         )

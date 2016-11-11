@@ -50,7 +50,7 @@ class WebhookBot(FlowBot):
     @mentioned
     def link_me(self, flow_message):
         """Link the current Semaphor user to the github username given."""
-        match = re.search('/me (\w+)', flow_message.get('text', ''))
+        match = re.search('me (\w+)', flow_message.get('text', ''))
         if match:
             github_username = match.group(1)
             sender_id = flow_message['senderAccountId']
@@ -65,7 +65,7 @@ class WebhookBot(FlowBot):
     @mentioned
     def unlink_me(self, flow_message):
         """Link the current Semaphor user to the github username given."""
-        match = re.search('/notme (\w+)', flow_message.get('text', ''))
+        match = re.search('notme (\w+)', flow_message.get('text', ''))
         if match:
             github_username = match.group(1)
             sender_id = flow_message['senderAccountId']

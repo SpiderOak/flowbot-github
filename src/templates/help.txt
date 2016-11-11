@@ -8,3 +8,6 @@ Link your Semaphor account with a the github username.
 
 {{ ':small_blue_diamond:' | emoji }} @{{ botname }} notme <username>
 Unlink your Semaphor acccount from the github username.
+
+{{ ':small_blue_diamond:' | emoji }} @{{ botname }} list
+List all GitHub repos that have been registered with this bot.

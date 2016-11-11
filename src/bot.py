@@ -21,7 +21,7 @@ class WebhookBot(FlowBot):
             "me": self.link_me,
             "notme": self.unlink_me,
             "help": self.help,
-            "list": self.list_repos
+            "list": self.list_repos,
         }
 
     def handle_webhook_message(self, webhook_message):
@@ -87,7 +87,10 @@ class WebhookBot(FlowBot):
         self.render_response(
             orig_message=flow_message,
             template_name='list_repos.txt',
-            context={"repos": repos},
+            context={
+                "repos": repos,
+                "public_url": self.url
+            },
         )
 
     def _register_repo(self, repo_name):

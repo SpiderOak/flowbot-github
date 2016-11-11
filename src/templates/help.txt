@@ -1,7 +1,10 @@
-[Mention Commands]
-==================
-/me <username>
-      Link your Semaphor account with a the github username.
+[GitHub Webhooks]
+This bot is listening for GitHub webhooks at:
+{{ public_url }}
 
-/notme <username>
-      Unlink your Semaphor acccount from the github username.
+[Commands]
+{{ ':small_blue_diamond:' | emoji }} @{{ botname }} me <username>
+Link your Semaphor account with a the github username.
+
+{{ ':small_blue_diamond:' | emoji }} @{{ botname }} notme <username>
+Unlink your Semaphor acccount from the github username.

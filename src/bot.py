@@ -26,7 +26,7 @@ class WebhookBot(FlowBot):
 
     def handle_webhook_message(self, webhook_message):
         """Message Semaphor channels with a summary of the webhook."""
-        self.register_repo(webhook_message.repo_name)
+        self._register_repo(webhook_message.repo_name)
 
         msg = webhook_message.render()
         highlights = self._get_highlights(webhook_message)
